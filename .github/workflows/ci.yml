@@ -25,6 +25,16 @@ jobs:
       - name: Install Composer packages
         run: composer install --no-interaction --no-progress --prefer-dist
 
+      - name: Install Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build the CSS and JavaScript (page tests need it)
+        run: |
+          npm ci
+          npm run build
+
       - name: Make a .env file and an app key
         run: |
           cp .env.example .env
